@@ -39,7 +39,7 @@ To convert a తెలుగు screenplay to **TEnglish**.
 
 At the moment it only transliterates the dialogs.
 	 
-###Issues
+### Issues
 ==
 Parentheticals, title pages don't work well. Fountain parser includes HTML elements.
 
