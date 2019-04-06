@@ -110,7 +110,7 @@
           for (x = 0, xlen = parts.length; x < xlen; x++) {	
             text = parts[x];
 
-            if (text.length > 0) {
+            if (text.length > 0) {               
               tokens.push({ type: regex.parenthetical.test(text) ? 'parenthetical' : 'dialogue', text: text });
             }
           }
@@ -165,7 +165,6 @@
 
       tokens.push({ type: 'action', text: line });
     }
-
     return tokens;
   };
 
@@ -212,26 +211,35 @@
       callback = toks;
       toks = undefined;
     }
+
       
     var tokens = tokenize(script)
-      , i      = tokens.length, token
+      , i      = tokens.length, token, title_info = {}
       , title, title_page = [], html = [], output;
+
+    function updateTitleInfo(key, value) {
+      title_info[key] = value;
+    }
 
     while (i--) {
       token = tokens[i];
-      token.text = inline.lexer(token.text);
+      // token.text = inline.lexer(token.text);
 
       switch (token.type) {
-        case 'title': title_page.push('<h1>' + token.text + '</h1>'); title = token.text.replace('<br />', ' ').replace(/<(?:.|\n)*?>/g, ''); break;
-        case 'credit': title_page.push('<p class=\"credit\">' + token.text + '</p>'); break;
-        case 'author': title_page.push('<p class=\"authors\">' + token.text + '</p>'); break;
-        case 'authors': title_page.push('<p class=\"authors\">' + token.text + '</p>'); break;
-        case 'source': title_page.push('<p class=\"source\">' + token.text + '</p>'); break;
-        case 'notes': title_page.push('<p class=\"notes\">' + token.text + '</p>'); break;
-        case 'draft_date': title_page.push('<p class=\"draft-date\">' + token.text + '</p>'); break;
-        case 'date': title_page.push('<p class=\"date\">' + token.text + '</p>'); break;
-        case 'contact': title_page.push('<p class=\"contact\">' + token.text + '</p>'); break;
-        case 'copyright': title_page.push('<p class=\"copyright\">' + token.text + '</p>'); break;
+        case 'title': 
+          updateTitleInfo(token.type, token.text);
+          title_page.push('<h1>' + token.text + '</h1>'); 
+          title = token.text.replace('<br />', ' ').replace(/<(?:.|\n)*?>/g, ''); 
+          break;
+        case 'credit': updateTitleInfo(token.type, token.text);title_page.push('<p class=\"credit\">' + token.text + '</p>'); break;
+        case 'author': updateTitleInfo(token.type, token.text);title_page.push('<p class=\"authors\">' + token.text + '</p>'); break;
+        case 'authors': updateTitleInfo(token.type, token.text);title_page.push('<p class=\"authors\">' + token.text + '</p>'); break;
+        case 'source': updateTitleInfo(token.type, token.text);title_page.push('<p class=\"source\">' + token.text + '</p>'); break;
+        case 'notes': updateTitleInfo(token.type, token.text);title_page.push('<p class=\"notes\">' + token.text + '</p>'); break;
+        case 'draft_date': updateTitleInfo(token.type, token.text);title_page.push('<p class=\"draft-date\">' + token.text + '</p>'); break;
+        case 'date': updateTitleInfo(token.type, token.text);title_page.push('<p class=\"date\">' + token.text + '</p>'); break;
+        case 'contact': updateTitleInfo(token.type, token.text);title_page.push('<p class=\"contact\">' + token.text + '</p>'); break;
+        case 'copyright': updateTitleInfo(token.type, token.text);title_page.push('<p class=\"copyright\">' + token.text + '</p>'); break;
 
         case 'scene_heading': html.push('<h3' + (token.scene_number ? ' id=\"' + token.scene_number + '\">' : '>') + token.text + '</h3>'); break;
         case 'transition': html.push('<h2>' + token.text + '</h2>'); break;
@@ -259,7 +267,8 @@
       }
     }
 
-    output = { title: title, html: { title_page: title_page.join(''), script: html.join('') }, tokens: toks ? tokens.reverse() : undefined };
+    output = { title: title, title_info: title_info, html: { title_page: title_page.join(''), script: html.join('') }, tokens: toks ? tokens.reverse() : undefined };
+
 
     if (typeof callback === 'function') {
       return callback(output);
@@ -275,6 +284,8 @@
   fountain.parse = function (script, tokens, callback) {
     return parse(script, tokens, callback);
   };
+
+  fountain.regex = regex;
 
   if (typeof module !== 'undefined') {
     module.exports = fountain;
