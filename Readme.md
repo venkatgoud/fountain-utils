@@ -48,8 +48,11 @@ node pdf_generator.js --indian --src samples/bigfish.fountain --out samples/bigf
 ### Credits
 
 [pdfkit]https://github.com/foliojs/pdfkit
-[afterwriting]https://github.com/afterwriting/
+
 [Fountain.js]https://github.com/mattdaly/Fountain.js 
+
+[afterwriting]https://github.com/afterwriting/
+
 
 ### Issues
 ==
