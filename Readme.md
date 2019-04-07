@@ -40,9 +40,9 @@ India especially in the South, the script format is different than the widely us
 
 Example
 
-node pdf_generator.js --src samples/bigfish.fountain --out samples/bigfish.pdf 
+	node pdf_generator.js --src samples/bigfish.fountain --out samples/bigfish.pdf 
 
-node pdf_generator.js --indian --src samples/bigfish.fountain --out samples/bigfish.pdf 
+	node pdf_generator.js --indian --src samples/bigfish.fountain --out samples/bigfish.pdf 
 
 ### Credits
 
