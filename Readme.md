@@ -32,17 +32,25 @@ To convert a తెలుగు screenplay to **TEnglish**.
 
 	node literator.js --src samples/telugu.fountain --out tenglish.fountain --src_scheme telugu --out_scheme itrans
 
-At the moment it only transliterates the dialogs. All other elements are left untouched. It ignores English words in the dictionary defined in the `word` file.
+At the moment it only transliterates the dialogs. All other elements are left untouched. It ignores English words in the dictionary defined in the `google 10000 words` file.
 
 ### Export to 'Indian' format.
 
 India especially in the South, the script format is different than the widely used International format. This utility will export a pdf in Indian script format.
 
-Example
+Examples
 
 	node pdf_generator.js --src samples/bigfish.fountain --out samples/bigfish.pdf 
 
 	node pdf_generator.js --indian --src samples/bigfish.fountain --out samples/bigfish.pdf 
+	
+When the source dialogs are in Telugu.
+
+	node pdf_generator.js --indian --lang telugu --src samples/telugu.fountain --out samples/telugu.pdf
+
+	node pdf_generator.js --lang telugu --src samples/telugu.fountain --out samples/telugu.pdf
+
+	
 
 ### Credits
 
