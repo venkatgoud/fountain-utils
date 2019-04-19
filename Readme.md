@@ -63,7 +63,7 @@ When the source dialogs are in Telugu.
 [sanscript](https://www.npmjs.com/package/sanscript)
 
 ### Issues
-==
-The generated pdf is not Hollywood standards complaint!!
-It doesn't generate location report yet.
+
+* The generated pdf is not Hollywood standards complaint. The margins are off. CONTD is not implemented. A page might end with a Character!
+* It doesn't generate location report yet.
  
